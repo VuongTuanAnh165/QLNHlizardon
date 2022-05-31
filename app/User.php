@@ -36,4 +36,141 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+     /**
+     * Get the category for the blog User.
+     * 
+     * @return Relationships
+     */
+    public function category()
+    {
+        return $this->hasMany(Category::class, 'id');
+    }
+
+    /**
+     * Get the company for the blog User.
+     * 
+     * @return Relationships
+     */
+    public function company()
+    {
+        return $this->hasMany(Company::class, 'id');
+    }
+
+    /**
+     * Get the company for the blog User.
+     * 
+     * @return Relationships
+     */
+    public function table()
+    {
+        return $this->hasMany(Table::class, 'id');
+    }
+
+    /**
+     * Get the company for the blog User.
+     * 
+     * @return Relationships
+     */
+    public function ingredient()
+    {
+        return $this->hasMany(Ingredient::class, 'id');
+    }
+
+    /**
+     * Get the company for the blog User.
+     * 
+     * @return Relationships
+     */
+    public function dish()
+    {
+        return $this->hasMany(Dish::class, 'id');
+    }
+
+    /**
+     * Get the company for the blog User.
+     * 
+     * @return Relationships
+     */
+    public function recipe()
+    {
+        return $this->hasMany(Recipe::class, 'id');
+    }
+
+    /**
+     * Get the company for the blog User.
+     * 
+     * @return Relationships
+     */
+    public function position()
+    {
+        return $this->hasMany(Position::class, 'id');
+    }
+
+    /**
+     * Get the company for the blog User.
+     * 
+     * @return Relationships
+     */
+    public function blog()
+    {
+        return $this->hasMany(Blog::class, 'id');
+    }
+
+    /**
+     * Get the company for the blog User.
+     * 
+     * @return Relationships
+     */
+    public function policy()
+    {
+        return $this->hasMany(Policy::class, 'id');
+    }
+
+    /**
+     * Get the company for the blog User.
+     * 
+     * @return Relationships
+     */
+    public function post()
+    {
+        return $this->hasMany(Post::class, 'id');
+    }
+
+    /**
+     * Get the company for the blog User.
+     * 
+     * @return Relationships
+     */
+    public function personnel()
+    {
+        return $this->hasMany(Personnel::class, 'id');
+    }
+
+    /**
+     * Get the company for the blog User.
+     * 
+     * @return Relationships
+     */
+    public function bill()
+    {
+        return $this->hasMany(Bill::class, 'id');
+    }
+
+    /**
+     * Hàm lấy danh sách tất cả các vai trò (giống như nhóm tài khoản)
+     */
+    public function role(){
+        return $this->belongsTo(Role::class, 'role_id','id');
+    }
+
+    // hàm kiểm tra user hiện tại có được gán 1 quyền nào đó hay không,
+    // nếu có thì trả về true
+    public function hasPermission(Permission $permission){
+//        echo $permission->name;
+
+        $check = !!optional(optional($this->role)->permission)->contains($permission);
+//        var_dump($check);
+//        die();
+        return $check;
+    }
 }
